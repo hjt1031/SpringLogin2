@@ -92,6 +92,7 @@ public class HomeController {
         }
 
         //세션에 유지되면 로그인으로 이동
+
         model.addAttribute("member", loginMember);
         return "loginHome";
     }
