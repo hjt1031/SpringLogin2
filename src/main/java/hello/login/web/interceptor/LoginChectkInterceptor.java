@@ -25,5 +25,7 @@ public class LoginChectkInterceptor implements HandlerInterceptor {
             response.sendRedirect("/login?redirectURL=" + requestURI);
             return false;
         }
+
+        return true;
     }
 }
