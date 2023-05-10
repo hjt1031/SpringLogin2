@@ -3,8 +3,8 @@ package hello.login;
 import hello.login.web.filter.LogFilter;
 import hello.login.web.filter.LoginCheckFilter;
 import hello.login.web.interceptor.LogInterceptor;
+import hello.login.web.interceptor.LoginChectkInterceptor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import javax.servlet.Filter;
 
 @Configuration
-public class WebCOnfig implements WebMvcConfigurer {
+public class WebConfig implements WebMvcConfigurer {
 
     /**
      * 인터셉터 적용
@@ -24,6 +24,11 @@ public class WebCOnfig implements WebMvcConfigurer {
                 .order(1)
                 .addPathPatterns("/**") //서블릿이랑 패턴이 조금 다르다(하위는 전부다 체크 한다)
                 .excludePathPatterns("/css/**", "/*.ico", "/error"); //이 경로는 인터셉터 안먹인다.
+
+        registry.addInterceptor(new LoginChectkInterceptor())
+                .order(2)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/", "/members/add", "/login", "/logout", "/css/**", "/*.ico", "/error");
     }
 
     /**
